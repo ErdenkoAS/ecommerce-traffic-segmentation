@@ -11,12 +11,12 @@ and figure in the paper.
 ## Layout
 
 ```
-config/          URI typing rules, static-resource patterns, bot signatures, feature parameters
+config/          URI typing rules, static patterns, bot signatures, feature and generator parameters
 src/trafseg/     package
   io_eclog.py    reader for the EClog dataset
   preprocess.py  filtering, URI typing, sessionization
   features/      session feature families
-  generator/     synthetic benchmark with ground truth
+  generator/     synthetic benchmark in the EClog format, with ground truth
   evaluation/    metrics and reports
 scripts/         entry points; everything in the paper is produced here, with fixed seeds
 notebooks/       exploration only, not used for reported results
@@ -41,8 +41,15 @@ here; see `data/README.md` for the expected location.
 ## Reproducing the paper
 
 ```
-python scripts/run_eclog.py data/raw/eclog_1day.csv            # sessions
-python scripts/build_features.py data/processed/eclog_1day_requests.parquet   # feature matrix
+# real data (EClog)
+python scripts/run_eclog.py data/raw/eclog_1day.csv
+python scripts/build_features.py data/processed/eclog_1day_requests.parquet
+
+# synthetic benchmark: same preprocessing and features, plus true labels
+python scripts/run_generator.py --requests 100000 --seed 0
+python scripts/run_eclog.py data/synthetic/synth_100k_s0.csv --out data/synthetic
+python scripts/build_features.py data/synthetic/synth_100k_s0_requests.parquet \
+    --clients data/synthetic/synth_100k_s0_clients.parquet
 ```
 
 Further scripts are added as the corresponding sections of the paper are completed.
