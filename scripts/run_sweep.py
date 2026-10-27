@@ -24,6 +24,7 @@ from pathlib import Path
 
 import pandas as pd
 
+from trafseg import operate as op
 from trafseg import pipeline as pl
 from trafseg import preprocess as pp
 from trafseg.evaluation import automated_flag, external_metrics, internal_metrics, rule_metrics
@@ -73,12 +74,23 @@ def evaluate(X: pd.DataFrame, cfg: dict, methods: list[str], seed: int, tag: dic
         rows.append({**tag, "method": method, "k": seg.k, "stable": seg.stable, "stability": seg.stability,
                      **internal_metrics(Zm, seg.labels, cfg["silhouette_sample"], seed),
                      **external_metrics(seg.labels, truth, BOT_CLASSES), "seconds": round(time.time() - t0, 1)})
-        # operational mode of Algorithm 2: rule OR segmentation, for both rule variants
+        # operational mode of Algorithm 2: rule OR segmentation. "<rule>+<method>" interprets
+        # segments by their true majority class (oracle, upper bound); "op+<method>" uses the
+        # label-free interpretation of Algorithm 2 step 5 (rule share or beacon-free profile),
+        # which is what the subsystem can do on a real log.
         flag = automated_flag(seg.labels, truth, BOT_CLASSES)
+        prof = pl.profiles(X, seg.labels, cols)
+        rule_share = pd.Series(rule).groupby(seg.labels).mean()
+        auto = op.interpret_segments(prof, rule_share, cfg["operate"])
+        flag_op = pd.Series(seg.labels).map(auto).to_numpy(dtype=bool)
+        rows.append({**tag, "method": f"op+{method}", "k": seg.k, "stable": seg.stable,
+                     **rule_metrics(flag_op.astype(int), truth, BOT_CLASSES)})
         for name, r in (("rule", rule), ("rule_ua", rule_ua)):
             union = r.astype(bool) | flag
             rows.append({**tag, "method": f"{name}+{method}", "k": seg.k, "stable": seg.stable,
                          **rule_metrics(union.astype(int), truth, BOT_CLASSES)})
+        rows.append({**tag, "method": f"rule_ua+op+{method}", "k": seg.k, "stable": seg.stable,
+                     **rule_metrics((rule_ua.astype(bool) | flag_op).astype(int), truth, BOT_CLASSES)})
     return rows
 
 

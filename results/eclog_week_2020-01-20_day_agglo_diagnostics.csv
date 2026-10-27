@@ -1,0 +1,24 @@
+user_agent_family,n,group
+bot,63,bot_ua_not_automated
+google-ads,36,bot_ua_not_automated
+spider,35,bot_ua_not_automated
+favicon,18,bot_ua_not_automated
+webserwis,16,bot_ua_not_automated
+preview,11,bot_ua_not_automated
+headless,5,bot_ua_not_automated
+externalhit,2,bot_ua_not_automated
+MSIE/9,70,browser_ua_automated
+MSIE/5,68,browser_ua_automated
+Chrome/52,54,browser_ua_automated
+Chrome/42,37,browser_ua_automated
+Safari/604,36,browser_ua_automated
+Chrome/40,30,browser_ua_automated
+Chrome/79,30,browser_ua_automated
+Chrome/53,30,browser_ua_automated
+Chrome/43,30,browser_ua_automated
+Chrome/60,21,browser_ua_automated
+Safari/602,18,browser_ua_automated
+Chrome/78,16,browser_ua_automated
+Chrome/41,15,browser_ua_automated
+Mozilla/5.0 (Macintosh; Intel Mac OS X 1,14,browser_ua_automated
+Mozilla/5.0 zgrab/0.x,12,browser_ua_automated

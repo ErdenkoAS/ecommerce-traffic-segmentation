@@ -1,0 +1,3 @@
+window,segment,share,rule_share,signature_share,status,automated,beh_n_actions,beh_beacon_share,beh_iat_median_s,tech_no_referrer_share,seq_self_transition_share,beh_product_share,id_foreign
+week,0,0.32993640334074015,0.9742220157919182,0.8927078495123084,covered,True,2.0,0.0,245.0,1.0,0.42857142857142855,0.4782608695652174,1.0
+week,1,0.6700635966592599,0.0750142938822184,0.021383647798742137,outside,False,1.0,0.5,13.0,0.0,0.6,1.0,0.0

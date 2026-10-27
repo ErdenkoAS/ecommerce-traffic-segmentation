@@ -59,3 +59,20 @@ rule_anchor:
 # share of rule-flagged sessions (the "covered by rules" threshold of
 # Algorithm 2). Set to 0 to select k from silhouette and stability alone.
 rule_segment_min_share: 0.9
+
+# Algorithm 2: periodic operation on the real log (Section 3.4). Windows are
+# local calendar days; clients are aggregated over the last n windows; a
+# segment is "covered" by the rules at >= covered_share of flagged sessions
+# and "outside" at <= outside_share. A segment is interpreted as automated
+# when the rules flag most of it, or when its median profile is a multi-action
+# session without any client-side beacon request.
+operate:
+  method: agglo
+  families: full
+  aggregation_windows: 7
+  client_mode_share: 0.5
+  covered_share: 0.9
+  outside_share: 0.1
+  automated_rule_share: 0.5
+  automated_beacon_share_max: 0.0
+  automated_min_actions: 5

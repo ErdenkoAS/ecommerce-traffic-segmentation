@@ -1,0 +1,23 @@
+user_agent_family,n,group
+bot,60,bot_ua_not_automated
+preview,21,bot_ua_not_automated
+externalhit,16,bot_ua_not_automated
+webserwis,12,bot_ua_not_automated
+spider,6,bot_ua_not_automated
+dalvik,1,bot_ua_not_automated
+httpclient,1,bot_ua_not_automated
+Chrome/52,166,browser_ua_automated
+MSIE/9,112,browser_ua_automated
+Safari/604,95,browser_ua_automated
+Chrome/43,79,browser_ua_automated
+Safari/9537,75,browser_ua_automated
+Chrome/42,74,browser_ua_automated
+Chrome/40,66,browser_ua_automated
+MSIE/5,56,browser_ua_automated
+Chrome/80,44,browser_ua_automated
+Chrome/79,42,browser_ua_automated
+Chrome/78,20,browser_ua_automated
+Firefox/72,18,browser_ua_automated
+Chrome/60,18,browser_ua_automated
+SamsungBrowser/10,16,browser_ua_automated
+Mozilla/5.0 zgrab/0.x,14,browser_ua_automated

@@ -1,0 +1,2 @@
+window,n_sessions,n_bot_ua,k,stable,silhouette,n_automated_segments,signature_coverage,rule_coverage,automated_share,browser_in_automated,browser_in_automated_share
+week,13522,4852,4,True,0.214,2,0.9758862324814509,0.9686858316221766,0.43743529063747966,1180,0.13610149942329874

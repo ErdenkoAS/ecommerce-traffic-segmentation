@@ -17,7 +17,8 @@ src/trafseg/     package
   preprocess.py  filtering, URI typing, sessionization
   features/      session feature families
   generator/     synthetic benchmark in the EClog format, with ground truth
-  pipeline.py    feature preparation, clustering methods, number-of-segments selection
+  pipeline.py    feature preparation, clustering methods, number-of-segments selection (Algorithm 1)
+  operate.py     segment matching, client aggregation and rule status across windows (Algorithm 2)
   evaluation/    internal and external metrics
 scripts/         entry points; everything in the paper is produced here, with fixed seeds
 notebooks/       exploration only, not used for reported results
@@ -60,6 +61,10 @@ python scripts/run_sweep.py
 python scripts/run_sweep.py --volumes 100000 --bot-shares 0.2 --ablation full with_account no_behavioural no_sequential technical_only --out results/sweep_ablation.csv
 python scripts/run_headless_sensitivity.py
 python scripts/make_figures.py
+
+# real data, validation weeks (Section 3.4): cut from the full archive, then Algorithm 2 by day
+python scripts/cut_eclog_week.py /path/to/eclog.zip --start 2020-01-20
+python scripts/run_eclog_week.py data/raw/eclog_week_2020-01-20.csv
 ```
 
 Further scripts are added as the corresponding sections of the paper are completed.
