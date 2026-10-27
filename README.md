@@ -17,7 +17,8 @@ src/trafseg/     package
   preprocess.py  filtering, URI typing, sessionization
   features/      session feature families
   generator/     synthetic benchmark in the EClog format, with ground truth
-  evaluation/    metrics and reports
+  pipeline.py    feature preparation, clustering methods, number-of-segments selection
+  evaluation/    internal and external metrics
 scripts/         entry points; everything in the paper is produced here, with fixed seeds
 notebooks/       exploration only, not used for reported results
 data/            not tracked; see data/README.md
@@ -50,6 +51,12 @@ python scripts/run_generator.py --requests 100000 --seed 0
 python scripts/run_eclog.py data/synthetic/synth_100k_s0.csv --out data/synthetic
 python scripts/build_features.py data/synthetic/synth_100k_s0_requests.parquet \
     --clients data/synthetic/synth_100k_s0_clients.parquet
+
+# method x metric matrix with ablation rows, several seeds (Sections 3.1-3.2)
+python scripts/run_benchmark.py data/synthetic/synth_100k_s0_features.parquet --seeds 0 1 2
+
+# robustness sweep: volumes x generator seeds x bot shares (Section 3.3), resumable
+python scripts/run_sweep.py
 ```
 
 Further scripts are added as the corresponding sections of the paper are completed.
