@@ -1,0 +1,28 @@
+# Action typing for the EClog shop (Section 2.3). Rules are applied in order;
+# the first matching regular expression assigns the type. Requests that match
+# nothing receive the type "other". Beacon requests are kept and flagged, not
+# removed. Patterns are matched against the URI path, case-insensitive.
+#
+# Types: home, category, product, search, cart, checkout, account, info, beacon, other.
+
+rules:
+  - type: beacon
+    method: POST
+    pattern: "^/inne/informacja_online\\.php"
+  - type: home
+    pattern: "^/?$|^/index\\.php$"
+  - type: product
+    pattern: "^/p-\\d+"
+  - type: category
+    # categories, brands and curated listings (new, hits, promotions, recommended)
+    pattern: "^/c-\\d+|^/m-\\d+|^/(?:nowosci|hity|promocje|polecane)\\.html"
+  - type: search
+    pattern: "^/szukaj\\.html|^/inne/autouzupelnienie\\.php"
+  - type: cart
+    pattern: "koszyk|^/schowek\\.html"
+  - type: checkout
+    pattern: "zamowienie|platnosci|wysylki"
+  - type: account
+    pattern: "logowanie|rejestracja|konto"
+  - type: info
+    pattern: "polec-znajomemu|zapytanie-o-produkt|about-us|informacje-o-dostawie|regulamin|kontakt|^/inne/"

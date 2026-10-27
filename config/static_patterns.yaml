@@ -1,0 +1,41 @@
+# Requests matching any pattern below are treated as static resources or
+# service traffic and removed before sessionization (Section 2.3).
+# Patterns are Python regular expressions matched against the URI path
+# (query string stripped, case-insensitive).
+
+static_extensions:
+  - css
+  - js
+  - map
+  - png
+  - jpg
+  - jpeg
+  - gif
+  - svg
+  - ico
+  - webp
+  - bmp
+  - woff
+  - woff2
+  - ttf
+  - eot
+  - otf
+  - pdf
+  - xml
+  - txt
+  - json
+
+static_paths:
+  - "^/robots\\.txt$"
+  - "^/favicon\\.ico$"
+  - "^/sitemap"
+  # scripts, stylesheets and images served through PHP in this shop
+  - "^/javascript/"
+  - "^/szablony/"
+  - "^/images/"
+  - "^/inne/obrazek\\.php"
+  - "^/inne/produkt_cecha_zdjecie\\.php"
+
+# Service traffic excluded entirely (admin panel of the shop).
+service_paths:
+  - "^/zarzadzanie/"

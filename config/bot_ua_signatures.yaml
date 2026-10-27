@@ -1,0 +1,34 @@
+# Substrings identifying known automated clients in the user-agent string
+# (case-insensitive). Used for the rule-based anchor and for weak labels on
+# EClog; never used as a feature.
+signatures:
+  - bot
+  - crawl
+  - spider
+  - slurp
+  - fetch
+  - scan
+  - curl
+  - wget
+  - python
+  - httpclient
+  - java/
+  - go-http-client
+  - libwww
+  - okhttp
+  - scrapy
+  - headless
+  - phantomjs
+  - monitor
+  - validator
+  - feed
+  - preview
+  - favicon
+  - google-ads
+  - mediapartners
+  - webserwis
+  - certificate
+  - externalhit
+  - experiment
+  - detection
+  - dalvik

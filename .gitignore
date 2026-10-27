@@ -218,3 +218,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Project data and generated outputs
+data/*
+!data/README.md
+results/*
+!results/.gitkeep
+notebooks/.ipynb_checkpoints/

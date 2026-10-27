@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "trafseg"
+version = "0.1.0"
+description = "Unsupervised segmentation of e-commerce web traffic for anti-fraud monitoring"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+authors = [
+  { name = "Alexander S. Erdenko", email = "erdenko.as@gmail.com" },
+  { name = "Sergey N. Bruskin" },
+]
+dependencies = [
+  "numpy>=1.24",
+  "pandas>=2.0",
+  "scipy>=1.10",
+  "scikit-learn>=1.3",
+  "pyyaml>=6.0",
+  "pyarrow>=14.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0", "jupyter", "matplotlib"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
