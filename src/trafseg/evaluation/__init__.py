@@ -57,8 +57,14 @@ def external_metrics(labels: np.ndarray, truth: pd.Series, bot_classes: tuple[st
     return out
 
 
+def automated_flag(labels: np.ndarray, truth: pd.Series, bot_classes: tuple[str, ...]) -> np.ndarray:
+    """Binary decision of a segmentation: session is in a segment whose majority is automated."""
+    major = segment_majority(labels, truth)
+    return pd.Series(labels).map(major).isin(bot_classes).to_numpy()
+
+
 def rule_metrics(rule: np.ndarray, truth: pd.Series, bot_classes: tuple[str, ...]) -> dict:
-    """The same external quantities for the binary rule anchor."""
+    """The same external quantities for a binary decision (rule anchor, or rule OR segmentation)."""
     t = truth.to_numpy()
     is_bot = np.isin(t, bot_classes)
     flag = rule.astype(bool)

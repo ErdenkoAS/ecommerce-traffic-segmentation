@@ -40,6 +40,12 @@ def test_family_columns_log_identity_subset():
     assert pl.family_columns(X, ["id", "rep"]) == ["id_foreign", "id_authenticated", "rep_complaints"]
 
 
+def test_rule_anchor_signature_only():
+    X = _toy()
+    X.loc[0, "tech_no_referrer_share"] = 1.0          # a human session without referrer
+    assert pl.rule_anchor(X, CFG)[0] == 1 and pl.rule_anchor(X, CFG, signature_only=True)[0] == 0
+
+
 @pytest.mark.parametrize("method", ["kmeans", "gmm", "agglo", "hdbscan"])
 def test_segment_recovers_blobs(method):
     X = _toy()

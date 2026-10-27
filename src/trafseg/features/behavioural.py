@@ -36,7 +36,8 @@ def behavioural_features(req: pd.DataFrame) -> pd.DataFrame:
     out["beh_n_actions"] = g.size().reindex(out.index).fillna(0).astype(int)
     span = (g_all["ts"].max() - g_all["ts"].min()).dt.total_seconds()
     out["beh_duration_s"] = span
-    out["beh_actions_per_min"] = out["beh_n_actions"] / (span / 60).clip(lower=1 / 60)
+    # intensity is undefined for single-request sessions (zero span); NaN like the interval statistics
+    out["beh_actions_per_min"] = (out["beh_n_actions"] / (span / 60)).where(span > 0)
 
     iat = g["ts"].apply(_iat_stats)
     out["beh_iat_median_s"] = iat.str[0].reindex(out.index)

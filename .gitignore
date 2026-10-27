@@ -225,4 +225,5 @@ data/*
 results/*
 !results/.gitkeep
 !results/*.csv
+!results/fig_*
 notebooks/.ipynb_checkpoints/

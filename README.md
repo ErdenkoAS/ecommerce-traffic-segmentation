@@ -57,6 +57,9 @@ python scripts/run_benchmark.py data/synthetic/synth_100k_s0_features.parquet --
 
 # robustness sweep: volumes x generator seeds x bot shares (Section 3.3), resumable
 python scripts/run_sweep.py
+python scripts/run_sweep.py --volumes 100000 --bot-shares 0.2 --ablation full with_account no_behavioural no_sequential technical_only --out results/sweep_ablation.csv
+python scripts/run_headless_sensitivity.py
+python scripts/make_figures.py
 ```
 
 Further scripts are added as the corresponding sections of the paper are completed.

@@ -18,7 +18,6 @@ from sklearn.cluster import HDBSCAN, AgglomerativeClustering, KMeans
 from sklearn.decomposition import PCA
 from sklearn.metrics import adjusted_rand_score, silhouette_score
 from sklearn.mixture import GaussianMixture
-from sklearn.neighbors import NearestCentroid
 from sklearn.preprocessing import StandardScaler
 
 LOG_IDENTITY = ["id_sessions_per_client", "id_ua_per_client", "id_foreign"]
@@ -64,13 +63,14 @@ def _fit(method: str, Z: np.ndarray, k: int, seed: int, params: dict) -> np.ndar
     if method == "gmm":
         return GaussianMixture(n_components=k, random_state=seed, **params).fit(Z).predict(Z)
     if method == "hdbscan":   # k is min_cluster_size here
-        return HDBSCAN(min_cluster_size=k, min_samples=params["min_samples"]).fit_predict(Z)
+        return HDBSCAN(min_cluster_size=k, min_samples=params["min_samples"], copy=True).fit_predict(Z)
     if method == "agglo":
         rng = np.random.default_rng(seed)
         n = min(params["subsample"], len(Z))
         idx = rng.choice(len(Z), n, replace=False)
         sub = AgglomerativeClustering(n_clusters=k, linkage="ward").fit_predict(Z[idx])
-        return NearestCentroid().fit(Z[idx], sub).predict(Z)
+        centroids = np.vstack([Z[idx][sub == c].mean(axis=0) for c in range(k)])
+        return np.argmin(((Z[:, None, :] - centroids[None, :, :]) ** 2).sum(axis=2), axis=1)
     raise ValueError(method)
 
 
@@ -133,9 +133,12 @@ def segment(Z: np.ndarray, method: str, cfg: dict, seed: int, rule: np.ndarray |
 
 # ----- knowledge-driven layer and profiles -------------------------------------------
 
-def rule_anchor(X: pd.DataFrame, cfg: dict) -> np.ndarray:
+def rule_anchor(X: pd.DataFrame, cfg: dict, signature_only: bool = False) -> np.ndarray:
     """1 = automated by the rule: bot user-agent signature or all requests without referrer."""
-    return ((X["label_bot_ua"] == 1) | (X["tech_no_referrer_share"] >= cfg["rule_anchor"]["no_referrer_share"])).astype(int).to_numpy()
+    flag = X["label_bot_ua"] == 1
+    if not signature_only:
+        flag = flag | (X["tech_no_referrer_share"] >= cfg["rule_anchor"]["no_referrer_share"])
+    return flag.astype(int).to_numpy()
 
 
 def profiles(X: pd.DataFrame, labels: np.ndarray, cols: list[str]) -> pd.DataFrame:

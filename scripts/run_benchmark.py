@@ -53,6 +53,8 @@ def main() -> None:
         rule = pl.rule_anchor(X, cfg)
         rows.append({"ablation": row, "method": "rule", "seed": 0, "n_features": len(cols), "k": 2,
                      "stable": True, **rule_metrics(rule, truth, BOT_CLASSES)})
+        rows.append({"ablation": row, "method": "rule_ua", "seed": 0, "n_features": len(cols), "k": 2,
+                     "stable": True, **rule_metrics(pl.rule_anchor(X, cfg, signature_only=True), truth, BOT_CLASSES)})
         for method in methods:
             Zm = pl.reduce(Z, method, cfg, seed=0)
             for seed in args.seeds:
