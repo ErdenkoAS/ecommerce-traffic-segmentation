@@ -3,7 +3,7 @@
 # nothing receive the type "other". Beacon requests are kept and flagged, not
 # removed. Patterns are matched against the URI path, case-insensitive.
 #
-# Types: home, category, product, search, cart, checkout, account, info, beacon, other.
+# Types: home, category, product, search, cart, checkout, account, info, error, beacon, other.
 
 rules:
   - type: beacon
@@ -17,12 +17,15 @@ rules:
     # categories, brands and curated listings (new, hits, promotions, recommended)
     pattern: "^/c-\\d+|^/m-\\d+|^/(?:nowosci|hity|promocje|polecane)\\.html"
   - type: search
-    pattern: "^/szukaj\\.html|^/inne/autouzupelnienie\\.php"
+    pattern: "^/szukaj\\.html|^/wyszukiwanie-|^/inne/autouzupelnienie\\.php"
   - type: cart
     pattern: "koszyk|^/schowek\\.html"
   - type: checkout
     pattern: "zamowienie|platnosci|wysylki"
   - type: account
     pattern: "logowanie|rejestracja|konto"
+  - type: error
+    # shop's own "not found" pages for products, categories and URLs
+    pattern: "^/brak-"
   - type: info
-    pattern: "polec-znajomemu|zapytanie-o-produkt|about-us|informacje-o-dostawie|regulamin|kontakt|^/inne/"
+    pattern: "polec-znajomemu|zapytanie-o-produkt|napisz-recenzje|kartapdf|about-us|informacje-o-dostawie|polityka-prywatnosci|regulamin|kontakt|^/inne/"

@@ -11,7 +11,7 @@ and figure in the paper.
 ## Layout
 
 ```
-config/          URI typing rules, static-resource patterns, pipeline parameters
+config/          URI typing rules, static-resource patterns, bot signatures, feature parameters
 src/trafseg/     package
   io_eclog.py    reader for the EClog dataset
   preprocess.py  filtering, URI typing, sessionization
@@ -41,7 +41,8 @@ here; see `data/README.md` for the expected location.
 ## Reproducing the paper
 
 ```
-python scripts/run_eclog.py data/raw/<eclog-slice>.csv
+python scripts/run_eclog.py data/raw/eclog_1day.csv            # sessions
+python scripts/build_features.py data/processed/eclog_1day_requests.parquet   # feature matrix
 ```
 
 Further scripts are added as the corresponding sections of the paper are completed.

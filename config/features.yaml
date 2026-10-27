@@ -1,0 +1,11 @@
+# Feature extraction parameters (Section 2.4).
+
+# Country code of the platform; sessions from elsewhere get id_foreign = 1.
+platform_country: PL
+
+# Sequential features need at least this many non-beacon actions; shorter
+# sessions get NaN in the seq_* columns and seq_valid = 0.
+min_actions_for_sequence: 5
+
+# Response codes counted as separate technical features.
+response_codes: [404, 499]
