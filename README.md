@@ -34,7 +34,7 @@ pip install -e ".[dev]"
 
 ## Data
 
-Real-world validation uses the EClog dataset (Chodak, Suchacka & Chawla, 2020),
+Real-world validation uses the EClog dataset (Chodak, Suchacka & Chawla, Computer Networks 2020),
 Harvard Dataverse, doi:10.7910/DVN/Z834IK, licence CC0. It is not redistributed
 here; see `data/README.md` for the expected location.
 

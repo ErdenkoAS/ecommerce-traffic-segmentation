@@ -4,12 +4,25 @@ This directory is not tracked by git.
 
 ## EClog
 
-Chodak G., Suchacka G., Chawla Y. *HTTP-level e-commerce data based on server access logs
-for an online store.* Computer Networks, 2020. Dataset: Harvard Dataverse,
-doi:10.7910/DVN/Z834IK (CC0, citation required).
+HTTP server access log of a real online store (Poland), published by the authors
+on Harvard Dataverse under CC0 with a citation requirement:
 
-Expected location of raw files: `data/raw/`. Processed session tables are written
-to `data/processed/` by `scripts/run_eclog.py`.
+> Chodak, G.; Suchacka, G.; Chawla, Y. HTTP-level e-commerce data based on server
+> access logs for an online store. *Computer Networks* **2020**, 183, 107589.
+> doi:10.1016/j.comnet.2020.107589 (open-access text: PMC7540248).
+> Dataset: Harvard Dataverse, doi:10.7910/DVN/Z834IK.
+
+The dataset page offers two files, both used here as published, without
+modification:
+
+| File | Content | Used for |
+|---|---|---|
+| `eclog_1day.tab` (`.csv`) | one day, 2019-12-11, 350 683 requests | exploration, feature and generator design |
+| `eclog.zip` (570 MB, ~9 GB unpacked) | full log, 2019-12-01 .. 2020-05-31, 35.2 M requests | validation week, cut with `scripts/cut_eclog_week.py` |
+
+Place the one-day file in `data/raw/`. The full archive is only needed once, to
+cut the validation week; keep it outside the repository. Processed session tables
+are written to `data/processed/` by `scripts/run_eclog.py`.
 
 ## Synthetic benchmark
 
